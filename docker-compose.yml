@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  database:
+    image: mysql:5.7
+    env_file: .env
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  wordpress:
+    image: wordpress
+    depends_on:
+      - database
+    env_file: .env
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - 80:80
